@@ -59,19 +59,13 @@ export function StepUpload({
         </p>
       </div>
 
-      <motion.div
+      <div
         {...getRootProps()}
-        animate={{
-          borderColor: isDragActive
-            ? "color-mix(in oklab, var(--neon-violet) 80%, transparent)"
-            : "color-mix(in oklab, white 14%, transparent)",
-          backgroundColor: isDragActive
-            ? "color-mix(in oklab, var(--neon-violet) 10%, transparent)"
-            : "color-mix(in oklab, white 3%, transparent)",
-          scale: isDragActive ? 1.01 : 1,
-        }}
-        transition={{ type: "spring", stiffness: 300, damping: 24 }}
-        className="rounded-3xl border-2 border-dashed p-8 text-center cursor-pointer"
+        className={`rounded-3xl border-2 border-dashed p-8 text-center cursor-pointer transition-all duration-300 ${
+          isDragActive
+            ? "border-primary bg-primary/10 scale-[1.01]"
+            : "border-white/15 bg-white/[0.03] hover:bg-white/[0.05]"
+        }`}
       >
         <input {...getInputProps()} />
         <motion.div
@@ -86,7 +80,7 @@ export function StepUpload({
         <div className="text-xs text-muted-foreground mt-1">
           Images & PDFs · up to {MAX_FILES} files · 8MB each
         </div>
-      </motion.div>
+      </div>
 
       <AnimatePresence>
         {data.files.length > 0 && (
