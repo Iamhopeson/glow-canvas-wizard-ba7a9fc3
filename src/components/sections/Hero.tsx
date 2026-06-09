@@ -8,7 +8,7 @@ export function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+    <section className="relative min-h-dvh flex items-center justify-center px-6 overflow-hidden">
       {/* aurora orbs */}
       {!reduce && (
         <>
