@@ -1,29 +1,53 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { WizardProvider } from "@/components/WizardContext";
+import { Hero } from "@/components/sections/Hero";
+import { TechStack } from "@/components/sections/TechStack";
+import { Portfolio } from "@/components/sections/Portfolio";
+import { About } from "@/components/sections/About";
+import { Packages } from "@/components/sections/Packages";
+import { Categories } from "@/components/sections/Categories";
+import { Reviews } from "@/components/sections/Reviews";
+import { Footer } from "@/components/sections/Footer";
+import { Wizard } from "@/components/wizard/Wizard";
+import { WhatsAppFab } from "@/components/WhatsAppFab";
+import { Toaster } from "@/components/ui/sonner";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "me.studio — Your Ideas, Brought to Life in 60fps." },
+      {
+        name: "description",
+        content:
+          "Freelance web developer building high-performing, interactive websites for businesses that refuse to blend in.",
+      },
+      { property: "og:title", content: "me.studio — Your Ideas, Brought to Life in 60fps." },
+      {
+        property: "og:description",
+        content:
+          "Custom websites, e-commerce, and web apps built with React, Tailwind, and Framer Motion.",
+      },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <WizardProvider>
+      <main className="relative">
+        <Hero />
+        <TechStack />
+        <Portfolio />
+        <About />
+        <Packages />
+        <Categories />
+        <Reviews />
+        <Footer />
+      </main>
+      <WhatsAppFab />
+      <Wizard />
+      <Toaster theme="dark" />
+    </WizardProvider>
   );
 }
