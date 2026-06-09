@@ -47,7 +47,10 @@ export const submitIntake = createServerFn({ method: "POST" })
       payload: data as unknown as Record<string, unknown>,
       file_urls: fileUrls,
     } as never);
-    if (insertError) console.error("[intake] insert error:", insertError.message);
+    if (insertError) {
+      console.error("[intake] insert error:", insertError.message);
+      throw new Error("Could not save your request. Please try again.");
+    }
 
     // Forward to Formspree (best-effort).
     try {

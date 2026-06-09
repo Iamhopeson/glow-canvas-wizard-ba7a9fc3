@@ -16,8 +16,8 @@ export function WhatsAppFab() {
       className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_10px_30px_-5px_#25D36699]"
       aria-label="Message me on WhatsApp"
     >
-      <MessageCircle className="w-6 h-6" />
-      <span className="absolute inset-0 rounded-full animate-ping bg-[#25D366]/40" />
+      <MessageCircle className="w-6 h-6 relative z-10" />
+      <span aria-hidden className="absolute inset-0 rounded-full animate-ping bg-[#25D366]/40 pointer-events-none" />
     </motion.a>
   );
 }

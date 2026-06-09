@@ -73,6 +73,17 @@ export function Wizard() {
   })();
 
   const handleSubmit = async () => {
+    // Final guard: re-validate required fields before submitting.
+    if (!data.name.trim() || !/^\S+@\S+\.\S+$/.test(data.email)) {
+      toast.error("Please add your name and a valid email before submitting.");
+      setStep(0);
+      return;
+    }
+    if (data.competitorUrl && !/^https?:\/\/\S+\.\S+/.test(data.competitorUrl.trim())) {
+      toast.error("Inspiration URL should start with http:// or https://");
+      setStep(1);
+      return;
+    }
     setSubmitting(true);
     try {
       // Upload each file to storage now.
