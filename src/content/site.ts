@@ -27,7 +27,7 @@ export const PACKAGES: Package[] = [
   {
     id: "starter",
     name: "Starter / Landing Page",
-    price: "$799",
+    price: "$255",
     cadence: "one-time",
     tagline: "A high-converting single page to launch fast.",
     features: [
@@ -41,7 +41,7 @@ export const PACKAGES: Package[] = [
   {
     id: "growth",
     name: "Business / Growth",
-    price: "$1,899",
+    price: "$510",
     cadence: "one-time",
     tagline: "Multi-page website built to grow leads and trust.",
     highlighted: true,
@@ -57,7 +57,7 @@ export const PACKAGES: Package[] = [
   {
     id: "enterprise",
     name: "E-commerce / Enterprise",
-    price: "$3,999+",
+    price: "$680",
     cadence: "from",
     tagline: "Full storefront or web app with custom logic.",
     features: [
