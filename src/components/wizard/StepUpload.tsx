@@ -1,0 +1,145 @@
+import { motion, AnimatePresence } from "framer-motion";
+import { FileImage, UploadCloud, X } from "lucide-react";
+import { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import type { WizardData } from "./Wizard";
+
+export type UploadedFile = {
+  id: string;
+  file: File;
+  preview?: string;
+};
+
+const MAX_FILES = 10;
+const MAX_SIZE = 8 * 1024 * 1024; // 8MB
+
+export function StepUpload({
+  data,
+  update,
+}: {
+  data: WizardData;
+  update: (p: Partial<WizardData>) => void;
+}) {
+  const onDrop = useCallback(
+    (accepted: File[]) => {
+      const next: UploadedFile[] = [...data.files];
+      for (const f of accepted) {
+        if (next.length >= MAX_FILES) break;
+        if (f.size > MAX_SIZE) continue;
+        next.push({
+          id: crypto.randomUUID(),
+          file: f,
+          preview: f.type.startsWith("image/") ? URL.createObjectURL(f) : undefined,
+        });
+      }
+      update({ files: next });
+    },
+    [data.files, update],
+  );
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      "image/*": [],
+      "application/pdf": [".pdf"],
+    },
+    maxSize: MAX_SIZE,
+  });
+
+  const remove = (id: string) =>
+    update({ files: data.files.filter((f) => f.id !== id) });
+
+  return (
+    <div className="space-y-5">
+      <div>
+        <h3 className="text-2xl font-display font-bold">Show me your taste.</h3>
+        <p className="text-sm text-muted-foreground mt-1">
+          Drop in screenshots, style references, your logo — anything that helps me see your
+          vision.
+        </p>
+      </div>
+
+      <motion.div
+        {...getRootProps()}
+        animate={{
+          borderColor: isDragActive
+            ? "color-mix(in oklab, var(--neon-violet) 80%, transparent)"
+            : "color-mix(in oklab, white 14%, transparent)",
+          backgroundColor: isDragActive
+            ? "color-mix(in oklab, var(--neon-violet) 10%, transparent)"
+            : "color-mix(in oklab, white 3%, transparent)",
+          scale: isDragActive ? 1.01 : 1,
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 24 }}
+        className="rounded-3xl border-2 border-dashed p-8 text-center cursor-pointer"
+      >
+        <input {...getInputProps()} />
+        <motion.div
+          animate={{ y: isDragActive ? -4 : 0 }}
+          className="mx-auto w-14 h-14 rounded-2xl bg-primary/15 text-primary flex items-center justify-center mb-3"
+        >
+          <UploadCloud className="w-6 h-6" />
+        </motion.div>
+        <div className="font-semibold">
+          {isDragActive ? "Drop them here" : "Drag & drop, or click to browse"}
+        </div>
+        <div className="text-xs text-muted-foreground mt-1">
+          Images & PDFs · up to {MAX_FILES} files · 8MB each
+        </div>
+      </motion.div>
+
+      <AnimatePresence>
+        {data.files.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="space-y-2"
+          >
+            <div className="text-xs uppercase tracking-widest text-muted-foreground">
+              {data.files.length} file{data.files.length === 1 ? "" : "s"}
+            </div>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {data.files.map((f) => (
+                <motion.div
+                  key={f.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="glass rounded-2xl p-2.5 flex items-center gap-3"
+                >
+                  <div className="w-11 h-11 rounded-lg overflow-hidden bg-white/5 flex items-center justify-center shrink-0">
+                    {f.preview ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={f.preview}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <FileImage className="w-5 h-5 text-muted-foreground" />
+                    )}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-sm">{f.file.name}</div>
+                    <div className="text-[10px] text-muted-foreground">
+                      {(f.file.size / 1024).toFixed(0)} KB
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => remove(f.id)}
+                    aria-label={`Remove ${f.file.name}`}
+                    className="w-7 h-7 rounded-full glass flex items-center justify-center hover:bg-destructive/20"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
