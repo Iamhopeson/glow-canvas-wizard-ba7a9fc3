@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { FileImage, UploadCloud, X } from "lucide-react";
-import { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import { useCallback, useEffect } from "react";
+import { useDropzone, type FileRejection } from "react-dropzone";
+import { toast } from "sonner";
 import type { WizardData } from "./Wizard";
 
 export type UploadedFile = {
@@ -20,18 +21,44 @@ export function StepUpload({
   data: WizardData;
   update: (p: Partial<WizardData>) => void;
 }) {
+  // Revoke any object URLs on unmount to prevent memory leaks.
+  useEffect(() => {
+    return () => {
+      for (const f of data.files) {
+        if (f.preview) URL.revokeObjectURL(f.preview);
+      }
+    };
+    // Intentionally only run cleanup on unmount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const onDrop = useCallback(
-    (accepted: File[]) => {
+    (accepted: File[], rejected: FileRejection[]) => {
+      if (rejected.length) {
+        toast.error(
+          rejected.length === 1
+            ? `${rejected[0].file.name} was rejected (over 8MB or unsupported).`
+            : `${rejected.length} files rejected (over 8MB or unsupported).`,
+        );
+      }
       const next: UploadedFile[] = [...data.files];
+      let skipped = 0;
       for (const f of accepted) {
-        if (next.length >= MAX_FILES) break;
-        if (f.size > MAX_SIZE) continue;
+        if (next.length >= MAX_FILES) {
+          skipped++;
+          continue;
+        }
+        if (f.size > MAX_SIZE) {
+          skipped++;
+          continue;
+        }
         next.push({
           id: crypto.randomUUID(),
           file: f,
           preview: f.type.startsWith("image/") ? URL.createObjectURL(f) : undefined,
         });
       }
+      if (skipped > 0) toast.message(`Limit reached — ${skipped} file(s) skipped.`);
       update({ files: next });
     },
     [data.files, update],
@@ -46,8 +73,11 @@ export function StepUpload({
     maxSize: MAX_SIZE,
   });
 
-  const remove = (id: string) =>
+  const remove = (id: string) => {
+    const target = data.files.find((f) => f.id === id);
+    if (target?.preview) URL.revokeObjectURL(target.preview);
     update({ files: data.files.filter((f) => f.id !== id) });
+  };
 
   return (
     <div className="space-y-5">
