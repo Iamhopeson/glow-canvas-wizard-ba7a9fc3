@@ -70,5 +70,5 @@ export const submitIntake = createServerFn({ method: "POST" })
       console.error("[intake] formspree error:", e);
     }
 
-    return { ok: true as const, fileUrls };
+    return { ok: true as const };
   });
