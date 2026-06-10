@@ -92,6 +92,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "me.studio — Your Ideas, Brought to Life in 60fps." },
+      { name: "description", content: "mestudioo is a creative digital agency focused on website design, development, branding, and online solutions. We help businesses, entrepreneurs, and organizati" },
+      { property: "og:description", content: "mestudioo is a creative digital agency focused on website design, development, branding, and online solutions. We help businesses, entrepreneurs, and organizati" },
+      { name: "twitter:description", content: "mestudioo is a creative digital agency focused on website design, development, branding, and online solutions. We help businesses, entrepreneurs, and organizati" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/9ma3BUZMc0ZEnJm35jLPcKBu6ti1/social-images/social-1781087092016-photo_5857238393132092785_y.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/9ma3BUZMc0ZEnJm35jLPcKBu6ti1/social-images/social-1781087092016-photo_5857238393132092785_y.webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
