@@ -28,7 +28,10 @@ export const submitIntake = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    // Generate signed URLs (7 days) for each uploaded file path.
+    // Generate signed URLs (7 days) for each uploaded file path — server-side use only.
+    // SECURITY: Never return these to the caller. The client provided the paths and could
+    // submit paths it does not own; signed URLs are only forwarded to Formspree (the owner's
+    // notification channel) and stored in the DB for admin review.
     const fileUrls: string[] = [];
     for (const f of data.files) {
       const { data: signed } = await supabaseAdmin.storage
@@ -67,5 +70,5 @@ export const submitIntake = createServerFn({ method: "POST" })
       console.error("[intake] formspree error:", e);
     }
 
-    return { ok: true as const, fileUrls };
+    return { ok: true as const };
   });
