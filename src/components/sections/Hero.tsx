@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, PlayCircle } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useWizard } from "@/components/WizardContext";
 import { CONTACT } from "@/content/site";
 
@@ -8,99 +8,119 @@ export function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="relative min-h-dvh flex items-center justify-center px-6 overflow-hidden">
-      {/* aurora orbs */}
+    <section id="top" className="relative pt-36 md:pt-44 pb-16 px-6 overflow-hidden">
       {!reduce && (
         <>
           <motion.div
             aria-hidden
-            className="absolute top-1/3 left-1/4 w-[40rem] h-[40rem] rounded-full blur-3xl opacity-40"
-            style={{ background: "radial-gradient(closest-side, var(--neon-violet), transparent)" }}
-            animate={{ x: [0, 60, -40, 0], y: [0, -40, 30, 0] }}
-            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-24 -left-24 w-[36rem] h-[36rem] rounded-full blur-3xl opacity-40"
+            style={{ background: "radial-gradient(closest-side, var(--sky-soft), transparent)" }}
+            animate={{ x: [0, 40, -30, 0], y: [0, -30, 20, 0] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
             aria-hidden
-            className="absolute bottom-10 right-10 w-[30rem] h-[30rem] rounded-full blur-3xl opacity-30"
-            style={{ background: "radial-gradient(closest-side, var(--neon-cyan), transparent)" }}
-            animate={{ x: [0, -50, 40, 0], y: [0, 30, -40, 0] }}
-            transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -bottom-32 right-0 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-30"
+            style={{ background: "radial-gradient(closest-side, color-mix(in oklab, var(--warm) 40%, transparent), transparent)" }}
+            animate={{ x: [0, -30, 20, 0], y: [0, 20, -20, 0] }}
+            transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
           />
         </>
       )}
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs text-muted-foreground mb-8"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-          Available for new projects · {CONTACT.brand}
-        </motion.div>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05]"
-        >
-          Your Ideas, <br className="hidden md:block" />
-          Brought to Life in{" "}
-          <span className="neon-text">60fps.</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25 }}
-          className="mt-6 md:mt-8 text-base md:text-xl text-muted-foreground max-w-2xl mx-auto"
-        >
-          {CONTACT.hero}
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-          className="mt-10 flex flex-col sm:flex-row gap-3 justify-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={() => openWizard()}
-            className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground font-semibold px-7 py-3.5 neon-glow"
+      <div className="relative z-10 max-w-6xl mx-auto grid lg:grid-cols-[1.15fr_0.85fr] gap-14 items-center">
+        <div>
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="chip"
           >
-            Get Started
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </motion.button>
-          <a
-            href="#portfolio"
-            className="inline-flex items-center justify-center gap-2 rounded-full glass px-7 py-3.5 font-medium hover:bg-white/10 transition-colors"
-          >
-            <PlayCircle className="w-4 h-4" /> See work
-          </a>
-        </motion.div>
+            <Sparkles className="w-3.5 h-3.5" /> Freelance · Available for new projects
+          </motion.span>
 
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.08 }}
+            className="mt-5 text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.02]"
+          >
+            Digital experiences <br className="hidden md:block" />
+            built to give people a{" "}
+            <span className="sky-text">reason to come back.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-6 text-base md:text-lg text-muted-foreground max-w-xl"
+          >
+            {CONTACT.hero} Every project includes one custom{" "}
+            <span className="font-semibold text-foreground">Signature Feature</span> —
+            a moment of delight or utility built just for your brand.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.32 }}
+            className="mt-8 flex flex-col sm:flex-row gap-3"
+          >
+            <button
+              onClick={() => openWizard()}
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground font-semibold px-7 py-3.5 sky-glow hover:opacity-95 transition-opacity"
+            >
+              Start a project
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </button>
+            <a
+              href="#work"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-secondary text-foreground px-7 py-3.5 font-medium hover:bg-muted transition-colors"
+            >
+              See selected work
+            </a>
+          </motion.div>
+        </div>
+
+        {/* Portrait / visual card */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="mt-16 grid grid-cols-3 gap-4 max-w-md mx-auto text-center"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="relative aspect-[4/5] w-full max-w-md mx-auto"
         >
-          {[
-            ["60fps", "Animations"],
-            ["<1s", "Load time"],
-            ["100%", "Custom code"],
-          ].map(([v, l]) => (
-            <div key={l} className="glass rounded-2xl py-3">
-              <div className="text-xl md:text-2xl font-display font-semibold neon-text">{v}</div>
-              <div className="text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground mt-1">
-                {l}
+          <div
+            aria-hidden
+            className="absolute inset-0 rounded-[2.5rem] rotate-3"
+            style={{
+              background:
+                "linear-gradient(135deg, color-mix(in oklab, var(--sky) 40%, white), color-mix(in oklab, var(--lilac) 60%, white))",
+            }}
+          />
+          <div className="relative h-full w-full rounded-[2.25rem] card-float overflow-hidden flex flex-col">
+            <div
+              className="flex-1"
+              style={{
+                background:
+                  "radial-gradient(120% 90% at 30% 20%, color-mix(in oklab, var(--sky) 35%, white), white 65%)",
+              }}
+            >
+              <div className="h-full w-full flex items-end justify-center p-6">
+                <div className="w-40 h-40 rounded-full bg-white/70 backdrop-blur border border-white flex items-center justify-center text-6xl">
+                  👨🏽‍💻
+                </div>
               </div>
             </div>
-          ))}
+            <div className="p-5 border-t border-border/60 bg-card">
+              <div className="text-xs uppercase tracking-widest text-muted-foreground">
+                Currently
+              </div>
+              <div className="mt-1 font-semibold">
+                Building a Signature Feature for a fintech dashboard.
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

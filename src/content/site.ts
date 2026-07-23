@@ -4,15 +4,124 @@
 
 export const CONTACT = {
   brand: "me.studio",
-  tagline: "Your Ideas, Brought to Life in 60fps.",
+  tagline: "Build digital experiences that give people a reason to come back.",
+  mission:
+    "Every Me.Studio project includes one custom Signature Feature — a moment of delight, interaction, or utility engineered to make your site memorable.",
   hero:
-    "High-performing web development for businesses that refuse to blend in. Interactive, fast, and designed to grow your revenue.",
+    "Freelance web developer building fast, beautiful, and interactive websites for businesses that refuse to blend in.",
   whatsapp: "https://wa.me/message/BHTAM7LXUJE7I1",
   calendly: "https://calendly.com/dhopesond1/30min",
   formspree: "https://formspree.io/f/mqeobdnz",
   email: "hello@me.studio",
 };
 
+export const STATS = [
+  { value: "6+", label: "Years experience" },
+  { value: "40+", label: "Projects shipped" },
+  { value: "24/7", label: "Client support" },
+  { value: "60fps", label: "Every interaction" },
+];
+
+// -----------------------------------------------------------------------------
+// Services — horizontal cards row
+// -----------------------------------------------------------------------------
+export type Service = {
+  id: string;
+  title: string;
+  description: string;
+  icon: "code" | "layout" | "shop" | "spark";
+  tint: "sky" | "warm" | "mint" | "lilac";
+};
+
+export const SERVICES: Service[] = [
+  {
+    id: "web",
+    title: "Web Development",
+    description: "Custom sites built with React, Tailwind, and Framer Motion.",
+    icon: "code",
+    tint: "sky",
+  },
+  {
+    id: "ui",
+    title: "UI / UX Design",
+    description: "Clean, conversion-focused interfaces with real design taste.",
+    icon: "layout",
+    tint: "warm",
+  },
+  {
+    id: "ecom",
+    title: "E-commerce",
+    description: "Full storefronts with Stripe, subscriptions, and analytics.",
+    icon: "shop",
+    tint: "mint",
+  },
+  {
+    id: "signature",
+    title: "Signature Feature",
+    description: "One custom interaction, tool, or delight built just for you.",
+    icon: "spark",
+    tint: "lilac",
+  },
+];
+
+// -----------------------------------------------------------------------------
+// Capabilities — percentage bars ("Why choose me")
+// -----------------------------------------------------------------------------
+export type Capability = { name: string; value: number };
+
+export const CAPABILITIES: Capability[] = [
+  { name: "Front-end Development", value: 96 },
+  { name: "Interaction & Motion Design", value: 92 },
+  { name: "E-commerce & Payments", value: 88 },
+  { name: "Backend & Databases", value: 82 },
+  { name: "SEO & Performance", value: 90 },
+];
+
+// -----------------------------------------------------------------------------
+// Me.Studio Tag — layered pastel cards
+// -----------------------------------------------------------------------------
+export type Tag = {
+  id: string;
+  title: string;
+  copy: string;
+  tint: "sky" | "warm" | "mint" | "lilac";
+  icon: "sparkles" | "compass" | "gift" | "crown";
+};
+
+export const ME_STUDIO_TAG: Tag[] = [
+  {
+    id: "signature",
+    title: "Signature Feature",
+    copy: "One custom interaction engineered to make your site unforgettable.",
+    tint: "lilac",
+    icon: "sparkles",
+  },
+  {
+    id: "identity",
+    title: "Brand Voice",
+    copy: "Design and copy tuned to how your customers actually think.",
+    tint: "sky",
+    icon: "compass",
+  },
+  {
+    id: "delivery",
+    title: "Fast Delivery",
+    copy: "Most projects ship in 5–14 days with daily preview links.",
+    tint: "warm",
+    icon: "gift",
+  },
+  {
+    id: "care",
+    title: "Post-launch Care",
+    copy: "Real support after go-live — no ghosting, no ticket queues.",
+    tint: "mint",
+    icon: "crown",
+  },
+];
+
+// -----------------------------------------------------------------------------
+// Pricing
+// -----------------------------------------------------------------------------
 export type Package = {
   id: "starter" | "growth" | "enterprise";
   name: string;
@@ -71,48 +180,26 @@ export const PACKAGES: Package[] = [
   },
 ];
 
-export type Category = { name: string; group: string; icon: string };
-
-export const CATEGORY_GROUPS = [
+// -----------------------------------------------------------------------------
+// Projects — filterable grid
+// -----------------------------------------------------------------------------
+export const PROJECT_FILTERS = [
   "All",
-  "Trades",
-  "Beauty",
-  "Food",
-  "Professional",
-  "Auto",
-  "Fitness",
+  "Web",
+  "E-commerce",
+  "Small Business",
+  "App",
 ] as const;
-
-export const CATEGORIES: Category[] = [
-  { name: "Plumbers", group: "Trades", icon: "🔧" },
-  { name: "Roofing", group: "Trades", icon: "🏠" },
-  { name: "Locksmiths", group: "Trades", icon: "🔑" },
-  { name: "Electricians", group: "Trades", icon: "⚡" },
-  { name: "Painters", group: "Trades", icon: "🎨" },
-  { name: "Moving", group: "Trades", icon: "📦" },
-  { name: "Hair / Beauty Salons", group: "Beauty", icon: "💇" },
-  { name: "Barber Shops", group: "Beauty", icon: "💈" },
-  { name: "Spas", group: "Beauty", icon: "🧖" },
-  { name: "Florists", group: "Beauty", icon: "🌸" },
-  { name: "Restaurants", group: "Food", icon: "🍽️" },
-  { name: "Bakeries", group: "Food", icon: "🥐" },
-  { name: "Cafes", group: "Food", icon: "☕" },
-  { name: "Laundry", group: "Professional", icon: "🧺" },
-  { name: "Accountants", group: "Professional", icon: "📊" },
-  { name: "Dentists", group: "Professional", icon: "🦷" },
-  { name: "Lawyers", group: "Professional", icon: "⚖️" },
-  { name: "Auto Repairs", group: "Auto", icon: "🔩" },
-  { name: "Car Wash", group: "Auto", icon: "🚿" },
-  { name: "Gyms", group: "Fitness", icon: "🏋️" },
-];
+export type ProjectFilter = (typeof PROJECT_FILTERS)[number];
 
 export type Project = {
   id: string;
   name: string;
   type: string;
+  filter: Exclude<ProjectFilter, "All">;
   description: string;
+  signature: string;
   tags: string[];
-  device: "laptop" | "phone";
   colors: [string, string];
 };
 
@@ -121,44 +208,73 @@ export const PROJECTS: Project[] = [
     id: "tech",
     name: "Nimbus AI",
     type: "Tech Startup",
-    description: "Landing site and dashboard for an AI infra startup. Cut their bounce rate by 38%.",
+    filter: "Web",
+    description: "Landing site and dashboard for an AI infra startup.",
+    signature: "Live model latency ticker in the hero.",
     tags: ["React", "Framer Motion", "Vercel"],
-    device: "laptop",
-    colors: ["#8b5cf6", "#22d3ee"],
+    colors: ["#7dd3fc", "#a5b4fc"],
   },
   {
     id: "ecom",
     name: "Heritage Roasters",
     type: "E-commerce",
-    description: "Custom Shopify storefront with subscriptions and live brewing tutorials.",
+    filter: "E-commerce",
+    description: "Custom storefront with subscriptions and live brew tutorials.",
+    signature: "Interactive brew guide with grind-size slider.",
     tags: ["Next", "Stripe", "Shopify"],
-    device: "phone",
-    colors: ["#f59e0b", "#ef4444"],
+    colors: ["#fdba74", "#f9a8d4"],
   },
   {
     id: "smb",
     name: "Rapid Plumbing Co.",
-    type: "Small Biz",
-    description: "Local services site with instant WhatsApp booking. 3.2x lead increase.",
+    type: "Local Service",
+    filter: "Small Business",
+    description: "Services site with instant WhatsApp booking flow.",
+    signature: "One-tap emergency call handoff with pre-filled details.",
     tags: ["TanStack", "Tailwind", "Cloud"],
-    device: "laptop",
-    colors: ["#10b981", "#0ea5e9"],
+    colors: ["#86efac", "#7dd3fc"],
+  },
+  {
+    id: "salon",
+    name: "Studio 21 Salon",
+    type: "Beauty",
+    filter: "Small Business",
+    description: "Booking-first site for a boutique salon.",
+    signature: "Stylist-picker with real portfolio previews.",
+    tags: ["React", "Supabase", "Calendly"],
+    colors: ["#f9a8d4", "#c4b5fd"],
+  },
+  {
+    id: "fit",
+    name: "Northline Fitness",
+    type: "Wellness App",
+    filter: "App",
+    description: "Habit tracker with weekly momentum charts.",
+    signature: "Streak flame that reacts to your consistency.",
+    tags: ["React", "Charts", "PWA"],
+    colors: ["#fdba74", "#fca5a5"],
+  },
+  {
+    id: "shop",
+    name: "Loom & Lace",
+    type: "Fashion Retail",
+    filter: "E-commerce",
+    description: "Editorial-style shop with lookbook storytelling.",
+    signature: "Scroll-driven lookbook that plays like a film.",
+    tags: ["Next", "Stripe", "Sanity"],
+    colors: ["#fbcfe8", "#ddd6fe"],
   },
 ];
 
 export const TECH_STACK = [
-  { name: "React", color: "#61dafb" },
+  { name: "React", color: "#38bdf8" },
   { name: "TypeScript", color: "#3178c6" },
-  { name: "Tailwind", color: "#38bdf8" },
-  { name: "Framer", color: "#bf5af2" },
-  { name: "Vercel", color: "#ffffff" },
-  { name: "Next.js", color: "#ffffff" },
-  { name: "Supabase", color: "#3ecf8e" },
-  { name: "Node", color: "#8cc84b" },
+  { name: "Tailwind", color: "#0ea5e9" },
+  { name: "Framer", color: "#a78bfa" },
+  { name: "Next.js", color: "#0f172a" },
+  { name: "Supabase", color: "#10b981" },
+  { name: "Node", color: "#65a30d" },
   { name: "Stripe", color: "#635bff" },
-  { name: "GitHub", color: "#ffffff" },
-  { name: "Figma", color: "#f24e1e" },
-  { name: "GSAP", color: "#88ce02" },
 ];
 
 export const REVIEWS = [
@@ -172,7 +288,7 @@ export const REVIEWS = [
     name: "Marco L.",
     role: "Owner, Heritage Roasters",
     quote:
-      "The animations make our brand feel premium. Customers actually screenshot pages and share them.",
+      "The details make our brand feel premium. Customers actually screenshot pages and share them.",
   },
   {
     name: "Sarah K.",
@@ -187,3 +303,7 @@ export const REVIEWS = [
       "Clean, modular code. Easy to hand off and extend. Best freelance dev experience we've had.",
   },
 ];
+
+// Backwards-compat exports (legacy imports)
+export const CATEGORY_GROUPS = ["All"] as const;
+export const CATEGORIES: { name: string; group: string; icon: string }[] = [];
