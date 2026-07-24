@@ -1,0 +1,9 @@
+# me.studio
+
+> Freelance web development studio building fast, interactive websites, e-commerce, and web apps — each with a custom Signature Feature engineered to make it memorable.
+
+me.studio is run by a freelance web developer specializing in React, Tailwind, and Framer Motion. Every project ships with one bespoke Signature Feature, mobile-first responsive design, and post-launch support.
+
+## Pages
+
+- [Home](/): Services, portfolio, pricing packages, capabilities, and client intake.
