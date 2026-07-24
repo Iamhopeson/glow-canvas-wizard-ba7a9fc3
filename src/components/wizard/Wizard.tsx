@@ -4,7 +4,7 @@ import { Check, ChevronLeft, ChevronRight, MessageCircle, X } from "lucide-react
 import { useWizard } from "@/components/WizardContext";
 import { CONTACT } from "@/content/site";
 import { useServerFn } from "@tanstack/react-start";
-import { submitIntake } from "@/lib/intake.functions";
+import { submitIntake, issueUploadTarget } from "@/lib/intake.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { StepBasics } from "./StepBasics";
