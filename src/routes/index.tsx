@@ -30,8 +30,35 @@ export const Route = createFileRoute("/")({
         content:
           "Custom websites, e-commerce, and web apps built with React, Tailwind, and Framer Motion.",
       },
+      { property: "og:url", content: "https://mestudioo.com/" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "me.studio — Digital experiences worth coming back to." },
+      {
+        name: "twitter:description",
+        content:
+          "Custom websites, e-commerce, and web apps built with React, Tailwind, and Framer Motion.",
+      },
+    ],
+    links: [{ rel: "canonical", href: "https://mestudioo.com/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          provider: { "@type": "Organization", name: "me.studio", url: "https://mestudioo.com" },
+          name: "Web development & design",
+          areaServed: "Worldwide",
+          description:
+            "Custom websites, e-commerce, and web apps — each including a bespoke Signature Feature.",
+          offers: [
+            { "@type": "Offer", name: "Starter / Landing Page", price: "255", priceCurrency: "USD" },
+            { "@type": "Offer", name: "Business / Growth", price: "510", priceCurrency: "USD" },
+            { "@type": "Offer", name: "E-commerce / Enterprise", price: "680", priceCurrency: "USD" },
+          ],
+        }),
+      },
     ],
   }),
   component: Index,
