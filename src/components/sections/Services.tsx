@@ -24,11 +24,12 @@ export function Services() {
           <div>
             <span className="chip">Services</span>
             <h2 className="mt-3 text-3xl md:text-5xl font-bold">
-              What I build for you.
+              Digital products, <span className="sky-text">built with intent.</span>
             </h2>
           </div>
           <p className="text-muted-foreground max-w-md">
-            Focused offerings — no bloat, no filler. Pick one, or combine them.
+            Websites, storefronts, POS, dashboards, and custom systems —
+            each shipped with one Signature Feature.
           </p>
         </div>
 
