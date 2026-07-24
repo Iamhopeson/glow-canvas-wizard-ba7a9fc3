@@ -12,6 +12,7 @@ import { About } from "@/components/sections/About";
 import { Reviews } from "@/components/sections/Reviews";
 import { Footer } from "@/components/sections/Footer";
 import { Wizard } from "@/components/wizard/Wizard";
+import { WorkFilterProvider } from "@/components/WorkFilterContext";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -67,22 +68,24 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <WizardProvider>
-      <Nav />
-      <main className="relative">
-        <Hero />
-        <StatsBar />
-        <Services />
-        <Capabilities />
-        <Portfolio />
-        <MeStudioTag />
-        <Packages />
-        <About />
-        <Reviews />
-        <Footer />
-      </main>
-      <WhatsAppFab />
-      <Wizard />
-      <Toaster />
+      <WorkFilterProvider>
+        <Nav />
+        <main className="relative">
+          <Hero />
+          <StatsBar />
+          <Services />
+          <Capabilities />
+          <Portfolio />
+          <MeStudioTag />
+          <Packages />
+          <About />
+          <Reviews />
+          <Footer />
+        </main>
+        <WhatsAppFab />
+        <Wizard />
+        <Toaster />
+      </WorkFilterProvider>
     </WizardProvider>
   );
 }

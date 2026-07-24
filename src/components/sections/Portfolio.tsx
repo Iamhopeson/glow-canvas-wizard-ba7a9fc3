@@ -1,20 +1,20 @@
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles } from "lucide-react";
-import { PROJECTS, PROJECT_FILTERS, type ProjectFilter } from "@/content/site";
+import { Sparkles, Target, RotateCcw } from "lucide-react";
+import { PROJECTS, PROJECT_FILTERS } from "@/content/site";
+import { useWorkFilter } from "@/components/WorkFilterContext";
 
 export function Portfolio() {
-  const [filter, setFilter] = useState<ProjectFilter>("All");
+  const { filter, setFilter } = useWorkFilter();
   const visible = PROJECTS.filter((p) => filter === "All" || p.filter === filter);
 
   return (
     <section id="work" className="relative py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-          <div>
+          <div className="min-w-0">
             <span className="chip">Selected work</span>
             <h2 className="mt-3 text-3xl md:text-5xl font-bold">
-              Projects that <span className="sky-text">move the needle.</span>
+              Projects built to <span className="sky-text">bring users back.</span>
             </h2>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -24,7 +24,7 @@ export function Portfolio() {
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                  className={`rounded-full px-3.5 py-1.5 text-xs sm:text-sm font-medium transition-colors ${
                     active
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary text-muted-foreground hover:text-foreground"
@@ -73,11 +73,11 @@ export function Portfolio() {
                 </div>
 
                 <div className="pt-5 flex items-start justify-between gap-3">
-                  <div>
+                  <div className="min-w-0">
                     <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                      {p.type}
+                      {p.type} · {p.filter}
                     </div>
-                    <h3 className="mt-1 font-display text-lg font-semibold">
+                    <h3 className="mt-1 font-display text-lg font-semibold truncate">
                       {p.name}
                     </h3>
                   </div>
@@ -87,10 +87,36 @@ export function Portfolio() {
                 </div>
 
                 <p className="mt-2 text-sm text-muted-foreground">{p.description}</p>
-                <p className="mt-3 text-sm">
-                  <span className="font-semibold">Signature Feature: </span>
-                  <span className="text-muted-foreground">{p.signature}</span>
-                </p>
+
+                <dl className="mt-4 space-y-2.5 text-sm">
+                  <div className="flex gap-2">
+                    <Target className="w-4 h-4 sky-text shrink-0 mt-0.5" />
+                    <div className="min-w-0">
+                      <dt className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                        Business purpose
+                      </dt>
+                      <dd className="text-foreground/90">{p.purpose}</dd>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Sparkles className="w-4 h-4 sky-text shrink-0 mt-0.5" />
+                    <div className="min-w-0">
+                      <dt className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                        Signature feature
+                      </dt>
+                      <dd className="text-foreground/90">{p.signature}</dd>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <RotateCcw className="w-4 h-4 sky-text shrink-0 mt-0.5" />
+                    <div className="min-w-0">
+                      <dt className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                        Return value
+                      </dt>
+                      <dd className="text-foreground/90">{p.returnValue}</dd>
+                    </div>
+                  </div>
+                </dl>
 
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {p.tags.map((t) => (
@@ -106,6 +132,12 @@ export function Portfolio() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {visible.length === 0 && (
+          <div className="mt-12 text-center text-muted-foreground">
+            No projects in this category yet — new work ships every month.
+          </div>
+        )}
       </div>
     </section>
   );

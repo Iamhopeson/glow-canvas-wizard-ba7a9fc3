@@ -4,11 +4,11 @@
 
 export const CONTACT = {
   brand: "me.studio",
-  tagline: "Build digital experiences that give people a reason to come back.",
+  tagline: "Digital experiences built to give people a reason to come back.",
   mission:
-    "Every Me.Studio project includes one custom Signature Feature — a moment of delight, interaction, or utility engineered to make your site memorable.",
+    "Every Me.Studio project includes one custom Signature Feature — a digital moment engineered around the business so users have a reason to return.",
   hero:
-    "Freelance web developer building fast, beautiful, and interactive websites for businesses that refuse to blend in.",
+    "Websites, e-commerce, POS systems, dashboards, and custom platforms — built as digital experiences, not brochures.",
   whatsapp: "https://wa.me/message/BHTAM7LXUJE7I1",
   calendly: "https://calendly.com/dhopesond1/30min",
   formspree: "https://formspree.io/f/mqeobdnz",
@@ -23,7 +23,7 @@ export const STATS = [
 ];
 
 // -----------------------------------------------------------------------------
-// Services — horizontal cards row
+// Services — direct, descriptive copy
 // -----------------------------------------------------------------------------
 export type Service = {
   id: string;
@@ -36,85 +36,109 @@ export type Service = {
 export const SERVICES: Service[] = [
   {
     id: "web",
-    title: "Web Development",
-    description: "Custom sites built with React, Tailwind, and Framer Motion.",
+    title: "Business Websites",
+    description:
+      "Custom websites built for customer engagement, discovery, and trust.",
     icon: "code",
     tint: "sky",
   },
   {
     id: "ui",
-    title: "UI / UX Design",
-    description: "Clean, conversion-focused interfaces with real design taste.",
+    title: "UX & Interface Design",
+    description:
+      "Astonishing UX design for digital products people actually enjoy using.",
     icon: "layout",
     tint: "warm",
   },
   {
     id: "ecom",
-    title: "E-commerce",
-    description: "Full storefronts with Stripe, subscriptions, and analytics.",
+    title: "E-commerce & POS",
+    description:
+      "Storefronts and POS systems built for repeat purchases and smarter operations.",
     icon: "shop",
     tint: "mint",
   },
   {
     id: "signature",
     title: "Signature Feature",
-    description: "One custom interaction, tool, or delight built just for you.",
+    description:
+      "One custom digital experience designed to give users a reason to return.",
     icon: "spark",
     tint: "lilac",
   },
 ];
 
 // -----------------------------------------------------------------------------
-// Capabilities — percentage bars ("Why choose me")
+// Portfolio categories — displayed as interactive percentage bars.
+// Selecting a bar filters the Portfolio grid below.
 // -----------------------------------------------------------------------------
-export type Capability = { name: string; value: number };
+export const PROJECT_FILTERS = [
+  "All",
+  "Business Websites",
+  "E-commerce Platforms",
+  "POS Systems",
+  "Web Applications",
+  "Digital Platforms",
+  "Custom Systems",
+] as const;
+export type ProjectFilter = (typeof PROJECT_FILTERS)[number];
+
+export type Capability = { name: Exclude<ProjectFilter, "All">; value: number };
 
 export const CAPABILITIES: Capability[] = [
-  { name: "Front-end Development", value: 96 },
-  { name: "Interaction & Motion Design", value: 92 },
-  { name: "E-commerce & Payments", value: 88 },
-  { name: "Backend & Databases", value: 82 },
-  { name: "SEO & Performance", value: 90 },
+  { name: "Business Websites", value: 95 },
+  { name: "E-commerce Platforms", value: 90 },
+  { name: "POS Systems", value: 85 },
+  { name: "Web Applications", value: 80 },
+  { name: "Digital Platforms", value: 75 },
+  { name: "Custom Systems", value: 70 },
 ];
 
 // -----------------------------------------------------------------------------
-// Me.Studio Tag — layered pastel cards
+// Me.Studio Tag — visual quality standards (UPPERCASE content)
 // -----------------------------------------------------------------------------
 export type Tag = {
   id: string;
   title: string;
   copy: string;
-  tint: "sky" | "warm" | "mint" | "lilac";
-  icon: "sparkles" | "compass" | "gift" | "crown";
+  icon: "sparkles" | "compass" | "gift" | "crown" | "layout" | "shop";
 };
 
 export const ME_STUDIO_TAG: Tag[] = [
   {
     id: "signature",
-    title: "Signature Feature",
-    copy: "One custom interaction engineered to make your site unforgettable.",
-    tint: "lilac",
+    title: "SIGNATURE FEATURE",
+    copy: "A CUSTOM DIGITAL EXPERIENCE DESIGNED TO GIVE USERS A REASON TO RETURN.",
     icon: "sparkles",
   },
   {
-    id: "identity",
-    title: "Brand Voice",
-    copy: "Design and copy tuned to how your customers actually think.",
-    tint: "sky",
+    id: "ux",
+    title: "USER-FRIENDLY UX",
+    copy: "CLEAR, COMFORTABLE, AND INTUITIVE EXPERIENCES BUILT FOR EVERY USER.",
     icon: "compass",
   },
   {
-    id: "delivery",
-    title: "Fast Delivery",
-    copy: "Most projects ship in 5–14 days with daily preview links.",
-    tint: "warm",
+    id: "return",
+    title: "RETURN VALUE",
+    copy: "DIGITAL EXPERIENCES DESIGNED TO KEEP USERS ENGAGED BEYOND THE FIRST VISIT.",
     icon: "gift",
   },
   {
-    id: "care",
-    title: "Post-launch Care",
-    copy: "Real support after go-live — no ghosting, no ticket queues.",
-    tint: "mint",
+    id: "conversion",
+    title: "CONVERSION THINKING",
+    copy: "EXPERIENCES DESIGNED TO TURN ATTENTION INTO DISCOVERY, ENGAGEMENT, AND SALES.",
+    icon: "shop",
+  },
+  {
+    id: "mobile",
+    title: "MOBILE-FIRST EXPERIENCE",
+    copy: "SEAMLESS DIGITAL EXPERIENCES BUILT FOR USERS ON EVERY SCREEN.",
+    icon: "layout",
+  },
+  {
+    id: "quality",
+    title: "ME.STUDIO QUALITY",
+    copy: "A DISTINCTIVE STANDARD OF DESIGN, INTERACTION, AND DIGITAL EXPERIENCE.",
     icon: "crown",
   },
 ];
@@ -183,22 +207,15 @@ export const PACKAGES: Package[] = [
 // -----------------------------------------------------------------------------
 // Projects — filterable grid
 // -----------------------------------------------------------------------------
-export const PROJECT_FILTERS = [
-  "All",
-  "Web",
-  "E-commerce",
-  "Small Business",
-  "App",
-] as const;
-export type ProjectFilter = (typeof PROJECT_FILTERS)[number];
-
 export type Project = {
   id: string;
   name: string;
   type: string;
   filter: Exclude<ProjectFilter, "All">;
   description: string;
+  purpose: string;
   signature: string;
+  returnValue: string;
   tags: string[];
   colors: [string, string];
 };
@@ -208,19 +225,23 @@ export const PROJECTS: Project[] = [
     id: "tech",
     name: "Nimbus AI",
     type: "Tech Startup",
-    filter: "Web",
-    description: "Landing site and dashboard for an AI infra startup.",
+    filter: "Business Websites",
+    description: "Marketing site and product dashboard for an AI infrastructure startup.",
+    purpose: "Lead generation and product credibility.",
     signature: "Live model latency ticker in the hero.",
+    returnValue: "Visitors return to watch performance evolve in real time.",
     tags: ["React", "Framer Motion", "Vercel"],
     colors: ["#7dd3fc", "#a5b4fc"],
   },
   {
     id: "ecom",
     name: "Heritage Roasters",
-    type: "E-commerce",
-    filter: "E-commerce",
-    description: "Custom storefront with subscriptions and live brew tutorials.",
+    type: "Specialty Coffee",
+    filter: "E-commerce Platforms",
+    description: "Custom storefront with subscriptions and brew education.",
+    purpose: "Repeat purchases and coffee discovery.",
     signature: "Interactive brew guide with grind-size slider.",
+    returnValue: "Customers return to learn, brew, and reorder.",
     tags: ["Next", "Stripe", "Shopify"],
     colors: ["#fdba74", "#f9a8d4"],
   },
@@ -228,9 +249,11 @@ export const PROJECTS: Project[] = [
     id: "smb",
     name: "Rapid Plumbing Co.",
     type: "Local Service",
-    filter: "Small Business",
+    filter: "Business Websites",
     description: "Services site with instant WhatsApp booking flow.",
+    purpose: "Fast lead capture for urgent service requests.",
     signature: "One-tap emergency call handoff with pre-filled details.",
+    returnValue: "Trusted go-to link saved in customer phones.",
     tags: ["TanStack", "Tailwind", "Cloud"],
     colors: ["#86efac", "#7dd3fc"],
   },
@@ -238,9 +261,11 @@ export const PROJECTS: Project[] = [
     id: "salon",
     name: "Studio 21 Salon",
     type: "Beauty",
-    filter: "Small Business",
-    description: "Booking-first site for a boutique salon.",
+    filter: "Digital Platforms",
+    description: "Booking-first platform for a boutique salon.",
+    purpose: "Stylist discovery and effortless booking.",
     signature: "Stylist-picker with real portfolio previews.",
+    returnValue: "Clients rebook their favorite stylist in two taps.",
     tags: ["React", "Supabase", "Calendly"],
     colors: ["#f9a8d4", "#c4b5fd"],
   },
@@ -248,9 +273,11 @@ export const PROJECTS: Project[] = [
     id: "fit",
     name: "Northline Fitness",
     type: "Wellness App",
-    filter: "App",
+    filter: "Web Applications",
     description: "Habit tracker with weekly momentum charts.",
+    purpose: "Daily engagement and behavior change.",
     signature: "Streak flame that reacts to your consistency.",
+    returnValue: "The streak itself becomes the reason to open the app.",
     tags: ["React", "Charts", "PWA"],
     colors: ["#fdba74", "#fca5a5"],
   },
@@ -258,11 +285,49 @@ export const PROJECTS: Project[] = [
     id: "shop",
     name: "Loom & Lace",
     type: "Fashion Retail",
-    filter: "E-commerce",
-    description: "Editorial-style shop with lookbook storytelling.",
+    filter: "E-commerce Platforms",
+    description: "Editorial shop with lookbook storytelling.",
+    purpose: "Style discovery and brand affinity.",
     signature: "Scroll-driven lookbook that plays like a film.",
+    returnValue: "New drops feel like a new episode worth watching.",
     tags: ["Next", "Stripe", "Sanity"],
     colors: ["#fbcfe8", "#ddd6fe"],
+  },
+  {
+    id: "pos",
+    name: "Ember & Oak POS",
+    type: "Restaurant Operations",
+    filter: "POS Systems",
+    description: "Full-service restaurant POS with kitchen display and analytics.",
+    purpose: "Faster orders, fewer errors, sharper operations.",
+    signature: "Live table-heatmap showing turnover in real time.",
+    returnValue: "Managers open the dashboard daily to run smarter shifts.",
+    tags: ["React", "Realtime", "Print"],
+    colors: ["#fca5a5", "#fdba74"],
+  },
+  {
+    id: "mall",
+    name: "Northgate Mall",
+    type: "Retail Destination",
+    filter: "Digital Platforms",
+    description: "Digital platform for a multi-tenant mall.",
+    purpose: "Store, dining, and event discovery.",
+    signature: "Interactive store finder with daily deals.",
+    returnValue: "Shoppers check in for new offers before every visit.",
+    tags: ["React", "Maps", "Cloud"],
+    colors: ["#93c5fd", "#c4b5fd"],
+  },
+  {
+    id: "custom",
+    name: "Fleetline Ops",
+    type: "Logistics Platform",
+    filter: "Custom Systems",
+    description: "Custom operations platform for a regional fleet.",
+    purpose: "Route planning, dispatch, and driver accountability.",
+    signature: "Live route board with drag-and-drop reassignments.",
+    returnValue: "Dispatchers live inside the tool every working hour.",
+    tags: ["React", "Node", "Postgres"],
+    colors: ["#7dd3fc", "#86efac"],
   },
 ];
 
@@ -282,19 +347,19 @@ export const REVIEWS = [
     name: "Priya N.",
     role: "Founder, Nimbus AI",
     quote:
-      "He shipped a beautiful, fast site in 9 days. Our conversion rate doubled in the first month.",
+      "Shipped a beautiful, fast site in 9 days. Conversion rate doubled in the first month.",
   },
   {
     name: "Marco L.",
     role: "Owner, Heritage Roasters",
     quote:
-      "The details make our brand feel premium. Customers actually screenshot pages and share them.",
+      "The details make the brand feel premium. Customers actually screenshot pages and share them.",
   },
   {
     name: "Sarah K.",
     role: "Rapid Plumbing Co.",
     quote:
-      "Bookings went through the roof. The WhatsApp flow he built is genius for a service business.",
+      "Bookings went through the roof. The WhatsApp flow is genius for a service business.",
   },
   {
     name: "Daniel V.",
