@@ -88,10 +88,12 @@ export function Wizard() {
     setSubmitting(true);
     try {
       // Upload each file to storage now.
-      const uploadedRefs: { name: string; size: number; type: string; path: string }[] = [];
+      const uploadedRefs: { name: string; size: number; type: string; path: string; token: string }[] = [];
       for (const f of data.files) {
         if (!f.file) continue;
-        const path = `${Date.now()}-${crypto.randomUUID()}/${f.file.name}`;
+        const { path, token } = await issueUploadFn({
+          data: { filename: f.file.name, contentType: f.file.type },
+        });
         const { error } = await supabase.storage
           .from("intake-uploads")
           .upload(path, f.file, { contentType: f.file.type, upsert: false });
@@ -105,6 +107,7 @@ export function Wizard() {
           size: f.file.size,
           type: f.file.type,
           path,
+          token,
         });
       }
 
