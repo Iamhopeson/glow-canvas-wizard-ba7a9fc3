@@ -4,7 +4,7 @@ import { Check, ChevronLeft, ChevronRight, MessageCircle, X } from "lucide-react
 import { useWizard } from "@/components/WizardContext";
 import { CONTACT } from "@/content/site";
 import { useServerFn } from "@tanstack/react-start";
-import { submitIntake } from "@/lib/intake.functions";
+import { submitIntake, issueUploadTarget } from "@/lib/intake.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { StepBasics } from "./StepBasics";
@@ -48,6 +48,7 @@ export function Wizard() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const submitFn = useServerFn(submitIntake);
+  const issueUploadFn = useServerFn(issueUploadTarget);
 
   useEffect(() => {
     if (open) {
@@ -87,10 +88,12 @@ export function Wizard() {
     setSubmitting(true);
     try {
       // Upload each file to storage now.
-      const uploadedRefs: { name: string; size: number; type: string; path: string }[] = [];
+      const uploadedRefs: { name: string; size: number; type: string; path: string; token: string }[] = [];
       for (const f of data.files) {
         if (!f.file) continue;
-        const path = `${Date.now()}-${crypto.randomUUID()}/${f.file.name}`;
+        const { path, token } = await issueUploadFn({
+          data: { filename: f.file.name, contentType: f.file.type },
+        });
         const { error } = await supabase.storage
           .from("intake-uploads")
           .upload(path, f.file, { contentType: f.file.type, upsert: false });
@@ -104,6 +107,7 @@ export function Wizard() {
           size: f.file.size,
           type: f.file.type,
           path,
+          token,
         });
       }
 
