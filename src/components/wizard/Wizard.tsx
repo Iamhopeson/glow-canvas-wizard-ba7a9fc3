@@ -48,6 +48,7 @@ export function Wizard() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const submitFn = useServerFn(submitIntake);
+  const issueUploadFn = useServerFn(issueUploadTarget);
 
   useEffect(() => {
     if (open) {
