@@ -84,6 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "me.studio is a creative studio building fast, interactive websites, e-commerce, and web apps for businesses that refuse to blend in.",
       },
       { name: "author", content: "me.studio" },
+      { name: "google-site-verification", content: "OmGMEOpMzzswPszEP1P0e3wq2jA7hJ-k8fV1B1VyEX8" },
       { property: "og:site_name", content: "me.studio" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
