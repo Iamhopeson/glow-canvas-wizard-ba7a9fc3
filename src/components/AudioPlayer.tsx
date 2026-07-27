@@ -28,10 +28,35 @@ export function AudioPlayer({ src, title }: { src: string; title: string }) {
   const toggle = () => {
     const a = audioRef.current;
     if (!a) return;
-    if (playing) a.pause();
-    else a.play().catch(() => setPlaying(false));
-    setPlaying(!playing);
+    if (playing) {
+      a.pause();
+      setPlaying(false);
+      return;
+    }
+    if (duration && a.currentTime >= duration - 0.05) a.currentTime = 0;
+    a.play()
+      .then(() => setPlaying(true))
+      .catch(() => setPlaying(false));
   };
+
+  const replay = () => {
+    const a = audioRef.current;
+    if (!a) return;
+    a.currentTime = 0;
+    a.play()
+      .then(() => setPlaying(true))
+      .catch(() => setPlaying(false));
+  };
+
+  const seekFromEvent = (clientX: number, el: HTMLElement) => {
+    const a = audioRef.current;
+    if (!a || !duration) return;
+    const rect = el.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    a.currentTime = ratio * duration;
+    setProgress(a.currentTime);
+  };
+
 
   const pct = duration ? (progress / duration) * 100 : 0;
   const fmt = (s: number) => {
