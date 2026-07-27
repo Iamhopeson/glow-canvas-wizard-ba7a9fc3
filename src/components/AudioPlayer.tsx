@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { Pause, Play } from "lucide-react";
+import { Pause, Play, RotateCcw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+
 
 export function AudioPlayer({ src, title }: { src: string; title: string }) {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -27,10 +28,35 @@ export function AudioPlayer({ src, title }: { src: string; title: string }) {
   const toggle = () => {
     const a = audioRef.current;
     if (!a) return;
-    if (playing) a.pause();
-    else a.play().catch(() => setPlaying(false));
-    setPlaying(!playing);
+    if (playing) {
+      a.pause();
+      setPlaying(false);
+      return;
+    }
+    if (duration && a.currentTime >= duration - 0.05) a.currentTime = 0;
+    a.play()
+      .then(() => setPlaying(true))
+      .catch(() => setPlaying(false));
   };
+
+  const replay = () => {
+    const a = audioRef.current;
+    if (!a) return;
+    a.currentTime = 0;
+    a.play()
+      .then(() => setPlaying(true))
+      .catch(() => setPlaying(false));
+  };
+
+  const seekFromEvent = (clientX: number, el: HTMLElement) => {
+    const a = audioRef.current;
+    if (!a || !duration) return;
+    const rect = el.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    a.currentTime = ratio * duration;
+    setProgress(a.currentTime);
+  };
+
 
   const pct = duration ? (progress / duration) * 100 : 0;
   const fmt = (s: number) => {
@@ -50,8 +76,9 @@ export function AudioPlayer({ src, title }: { src: string; title: string }) {
           whileTap={{ scale: 0.92 }}
           whileHover={{ scale: 1.05 }}
           onClick={toggle}
+          disabled={!src}
           aria-label={playing ? "Pause" : "Play"}
-          className="shrink-0 w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center neon-glow"
+          className="shrink-0 w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center neon-glow disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
         </motion.button>
@@ -59,21 +86,46 @@ export function AudioPlayer({ src, title }: { src: string; title: string }) {
           <div className="text-xs uppercase tracking-widest text-muted-foreground mb-1">
             Voice intro
           </div>
-          <div className="font-display font-semibold truncate">{title}</div>
+          <div className="font-display font-semibold truncate">
+            {src ? title : "Audio coming soon"}
+          </div>
         </div>
+        <button
+          onClick={replay}
+          disabled={!src || !duration}
+          aria-label="Replay"
+          className="shrink-0 w-10 h-10 rounded-full border border-border/60 flex items-center justify-center hover:bg-muted transition disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          <RotateCcw className="w-4 h-4" />
+        </button>
         <div className="text-xs tabular-nums text-muted-foreground">
           {fmt(progress)} / {fmt(duration)}
         </div>
       </div>
 
-      <div className="mt-6 flex items-end gap-[3px] h-12">
+      <div
+        role="slider"
+        aria-label="Seek"
+        aria-valuemin={0}
+        aria-valuemax={Math.floor(duration) || 0}
+        aria-valuenow={Math.floor(progress) || 0}
+        tabIndex={0}
+        onClick={(e) => seekFromEvent(e.clientX, e.currentTarget)}
+        onKeyDown={(e) => {
+          const a = audioRef.current;
+          if (!a || !duration) return;
+          if (e.key === "ArrowRight") a.currentTime = Math.min(duration, a.currentTime + 5);
+          if (e.key === "ArrowLeft") a.currentTime = Math.max(0, a.currentTime - 5);
+        }}
+        className="mt-6 flex items-end gap-[3px] h-12 cursor-pointer select-none"
+      >
         {Array.from({ length: BARS }).map((_, i) => {
           const active = (i / BARS) * 100 < pct;
           const h = 20 + Math.abs(Math.sin(i * 0.7)) * 80;
           return (
             <motion.div
               key={i}
-              className="flex-1 rounded-full"
+              className="flex-1 rounded-full pointer-events-none"
               style={{
                 height: `${h}%`,
                 background: active
@@ -90,6 +142,7 @@ export function AudioPlayer({ src, title }: { src: string; title: string }) {
           );
         })}
       </div>
+
     </div>
   );
 }

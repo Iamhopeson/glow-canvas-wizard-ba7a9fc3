@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { AudioPlayer } from "@/components/AudioPlayer";
+import introAudio from "@/assets/mestudio-intro.mp3.asset.json";
+
 
 export function About() {
   return (
@@ -32,7 +34,7 @@ export function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <AudioPlayer src="/audio/intro.mp3" title="A 30-second intro" />
+          <AudioPlayer src={introAudio.url} title="A 30-second intro" />
         </motion.div>
       </div>
     </section>
