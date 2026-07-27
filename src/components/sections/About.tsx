@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { AudioPlayer } from "@/components/AudioPlayer";
+import introAudio from "@/assets/mestudio-intro.mp3.asset.json";
+
 
 export function About() {
   return (
