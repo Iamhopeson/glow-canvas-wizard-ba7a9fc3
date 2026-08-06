@@ -9,10 +9,23 @@ const FileRefSchema = z.object({
   token: z.string().max(200), // HMAC token proving this path was issued by the server
 });
 
+const NAME_RE = /^[\p{L}\p{M}'.\-\s]+$/u;
+const PHONE_RE = /^[0-9+()\-.\s]*$/;
+const LINK_RE = /(https?:\/\/|www\.|\[url=|<a\s)/i;
+
 const IntakeSchema = z.object({
-  name: z.string().trim().min(1).max(120),
+  name: z
+    .string()
+    .trim()
+    .min(2, "Please enter your full name")
+    .max(120)
+    .regex(NAME_RE, "Name contains invalid characters"),
   email: z.string().trim().email().max(255),
-  phone: z.string().trim().max(40).optional().default(""),
+  phone: z.string().trim().max(40).regex(PHONE_RE, "Invalid phone number").optional().default(""),
+  // Honeypot: hidden from real users, filled in by bots.
+  website: z.string().max(200).optional().default(""),
+  // Milliseconds the form was open before submit — instant submits are bots.
+  elapsedMs: z.number().int().nonnegative().optional().default(0),
   businessName: z.string().trim().max(160).optional().default(""),
   tier: z.string().trim().max(40).optional().default(""),
   description: z.string().trim().max(4000).optional().default(""),
@@ -70,6 +83,14 @@ export const issueUploadTarget = createServerFn({ method: "POST" })
 export const submitIntake = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => IntakeSchema.parse(data))
   .handler(async ({ data }) => {
+    // Spam gates: honeypot, submit speed, and link-stuffed free text.
+    if (data.website.trim() !== "" || data.elapsedMs < 2000) {
+      return { ok: true as const };
+    }
+    if (LINK_RE.test(data.name) || LINK_RE.test(data.businessName)) {
+      throw new Error("Your submission looks like spam. Please remove links from the name fields.");
+    }
+
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     // Verify every path was issued by this server before signing URLs for it.
