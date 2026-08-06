@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { useWizard } from "@/components/WizardContext";
 import { CONTACT } from "@/content/site";
+import logo from "@/assets/me-studio-logo.png.asset.json";
+
 
 const LINKS = [
   { href: "#services", label: "Services" },
