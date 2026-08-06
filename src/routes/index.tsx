@@ -15,30 +15,31 @@ import { Wizard } from "@/components/wizard/Wizard";
 import { WorkFilterProvider } from "@/components/WorkFilterContext";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { Toaster } from "@/components/ui/sonner";
+import { CookieConsent } from "@/components/CookieConsent";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "me.studio — Digital experiences worth coming back to." },
+      { title: "Derrick Hopeson | Software Developer @ me.studio" },
       {
         name: "description",
         content:
-          "Freelance web developer building fast, interactive websites with a custom Signature Feature in every project.",
+          "Derrick Hopeson (mestudioo) builds custom websites, mobile apps, and UI/UX design for businesses that want digital products people return to. Fast, secure, conversion-focused builds.",
       },
-      { property: "og:title", content: "me.studio — Digital experiences worth coming back to." },
+      { property: "og:title", content: "Derrick Hopeson | Software Developer @ me.studio" },
       {
         property: "og:description",
         content:
-          "Custom websites, e-commerce, and web apps built with React, Tailwind, and Framer Motion.",
+          "Derrick Hopeson (mestudioo) builds custom websites, mobile apps, and UI/UX design for businesses that want digital products people return to. Fast, secure, conversion-focused builds.",
       },
       { property: "og:url", content: "https://mestudioo.com/" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "me.studio — Digital experiences worth coming back to." },
+      { name: "twitter:title", content: "Derrick Hopeson | Software Developer @ me.studio" },
       {
         name: "twitter:description",
         content:
-          "Custom websites, e-commerce, and web apps built with React, Tailwind, and Framer Motion.",
+          "Derrick Hopeson (mestudioo) builds custom websites, mobile apps, and UI/UX design for businesses that want digital products people return to. Fast, secure, conversion-focused builds.",
       },
     ],
     links: [{ rel: "canonical", href: "https://mestudioo.com/" }],
@@ -85,6 +86,7 @@ function Index() {
         <WhatsAppFab />
         <Wizard />
         <Toaster />
+        <CookieConsent />
       </WorkFilterProvider>
     </WizardProvider>
   );

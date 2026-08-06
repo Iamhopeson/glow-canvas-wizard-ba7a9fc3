@@ -1,4 +1,5 @@
 import { CONTACT } from "@/content/site";
+import logo from "@/assets/me-studio-logo.png.asset.json";
 import { Calendar, MessageCircle, ArrowRight } from "lucide-react";
 import { useWizard } from "@/components/WizardContext";
 
@@ -35,7 +36,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 justify-between items-center text-sm text-muted-foreground pt-6 border-t border-border">
-          <div className="font-display font-bold text-foreground text-lg">{CONTACT.brand}</div>
+          <div className="flex items-center gap-2 font-display font-bold text-foreground text-lg">
+            <img src={logo.url} alt="me.studio logo" className="w-8 h-8 object-contain" width={32} height={32} />
+            {CONTACT.brand}
+          </div>
           <div className="flex gap-3 flex-wrap justify-center">
             <a
               href={CONTACT.calendly}
