@@ -12,8 +12,7 @@ export function Portfolio() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
           <div className="min-w-0">
-            <span className="chip">Selected work</span>
-            <h2 className="mt-3 text-3xl md:text-5xl font-bold">
+            <h2 className="text-3xl md:text-5xl font-bold">
               Projects built to <span className="sky-text">bring users back.</span>
             </h2>
           </div>

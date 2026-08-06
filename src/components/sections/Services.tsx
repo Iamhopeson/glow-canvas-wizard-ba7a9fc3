@@ -22,8 +22,7 @@ export function Services() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
           <div>
-            <span className="chip">Services</span>
-            <h2 className="mt-3 text-3xl md:text-5xl font-bold">
+            <h2 className="text-3xl md:text-5xl font-bold">
               Digital products, <span className="sky-text">built with intent.</span>
             </h2>
           </div>

@@ -13,8 +13,7 @@ export function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <span className="chip">The human</span>
-          <h2 className="mt-3 text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
             Hi, I build the <span className="sky-text">interactive</span> web.
           </h2>
           <p className="text-muted-foreground leading-relaxed">

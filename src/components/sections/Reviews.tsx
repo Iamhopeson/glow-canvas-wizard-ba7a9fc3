@@ -7,8 +7,7 @@ export function Reviews() {
     <section className="relative py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <span className="chip">Reviews</span>
-          <h2 className="mt-3 text-3xl md:text-5xl font-bold">
+          <h2 className="text-3xl md:text-5xl font-bold">
             What clients <span className="sky-text">actually say.</span>
           </h2>
         </div>

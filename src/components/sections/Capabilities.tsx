@@ -18,8 +18,7 @@ export function Capabilities() {
     <section id="capabilities" className="relative py-24 px-6">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-start">
         <div className="lg:sticky lg:top-28">
-          <span className="chip">Work categories</span>
-          <h2 className="mt-3 text-3xl md:text-5xl font-bold">
+          <h2 className="text-3xl md:text-5xl font-bold">
             Select a category. <br />
             <span className="sky-text">The portfolio responds.</span>
           </h2>
