@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { useWizard } from "@/components/WizardContext";
 import { CONTACT } from "@/content/site";
+import logo from "@/assets/me-studio-logo.png.asset.json";
+
 
 const LINKS = [
   { href: "#services", label: "Services" },
@@ -19,9 +21,11 @@ export function Nav() {
       className="fixed top-4 inset-x-4 z-40 flex justify-center"
     >
       <nav className="card-float w-full max-w-5xl rounded-full pl-5 pr-2 py-2 flex items-center gap-4">
-        <a href="#top" className="font-display font-bold text-base sm:text-lg tracking-tight">
+        <a href="#top" className="flex items-center gap-2 font-display font-bold text-base sm:text-lg tracking-tight">
+          <img src={logo.url} alt="me.studio logo" className="w-8 h-8 object-contain" width={32} height={32} />
           {CONTACT.brand}
         </a>
+
         <ul className="hidden md:flex items-center gap-6 text-sm text-muted-foreground ml-4">
           {LINKS.map((l) => (
             <li key={l.href}>

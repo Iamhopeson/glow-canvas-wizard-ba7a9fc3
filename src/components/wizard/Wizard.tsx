@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, ChevronLeft, ChevronRight, MessageCircle, X } from "lucide-react";
 import { useWizard } from "@/components/WizardContext";
 import { CONTACT } from "@/content/site";
@@ -49,12 +49,16 @@ export function Wizard() {
   const [success, setSuccess] = useState(false);
   const submitFn = useServerFn(submitIntake);
   const issueUploadFn = useServerFn(issueUploadTarget);
+  const [honeypot, setHoneypot] = useState("");
+  const openedAt = useRef<number>(Date.now());
 
   useEffect(() => {
     if (open) {
       setData({ ...empty, tier: initialTier ?? "" });
       setStep(0);
       setSuccess(false);
+      setHoneypot("");
+      openedAt.current = Date.now();
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -75,7 +79,7 @@ export function Wizard() {
 
   const handleSubmit = async () => {
     // Final guard: re-validate required fields before submitting.
-    if (!data.name.trim() || !/^\S+@\S+\.\S+$/.test(data.email)) {
+    if (data.name.trim().length < 2 || !/^\S+@\S+\.\S+$/.test(data.email)) {
       toast.error("Please add your name and a valid email before submitting.");
       setStep(0);
       return;
@@ -122,6 +126,8 @@ export function Wizard() {
           competitorUrl: data.competitorUrl,
           timeline: data.timeline,
           biggestProblem: data.biggestProblem,
+          website: honeypot,
+          elapsedMs: Date.now() - openedAt.current,
           files: uploadedRefs,
         },
       });
@@ -186,6 +192,18 @@ export function Wizard() {
                 </>
               )}
             </div>
+
+            {/* Honeypot — hidden from humans, catches bots */}
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              className="absolute left-[-9999px] w-px h-px opacity-0"
+            />
 
             {/* Body */}
             <div className="flex-1 overflow-y-auto p-6">

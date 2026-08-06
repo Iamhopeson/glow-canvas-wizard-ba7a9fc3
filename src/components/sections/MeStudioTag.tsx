@@ -23,8 +23,7 @@ export function MeStudioTag() {
     <section id="me-studio-tag" className="relative py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="chip">The Me.Studio tag</span>
-          <h2 className="mt-3 text-3xl md:text-5xl font-bold">
+          <h2 className="text-3xl md:text-5xl font-bold">
             What makes a project <br />
             <span className="sky-text">a Me.Studio project.</span>
           </h2>

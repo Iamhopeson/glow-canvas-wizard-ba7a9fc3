@@ -16,8 +16,7 @@ export function Packages() {
     <section id="packages" className="relative py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <span className="chip">Pricing</span>
-          <h2 className="mt-3 text-3xl md:text-5xl font-bold">
+          <h2 className="text-3xl md:text-5xl font-bold">
             Pick your <span className="sky-text">launchpad.</span>
           </h2>
           <p className="mt-4 text-muted-foreground max-w-xl mx-auto">

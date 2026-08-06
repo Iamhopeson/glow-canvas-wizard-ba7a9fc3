@@ -77,11 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "me.studio — Your Ideas, Brought to Life in 60fps." },
+      { name: "referrer", content: "strict-origin-when-cross-origin" },
+      { httpEquiv: "Content-Security-Policy", content: "upgrade-insecure-requests" },
+      { title: "Derrick Hopeson | Software Developer @ me.studio" },
       {
         name: "description",
         content:
-          "me.studio is a creative studio building fast, interactive websites, e-commerce, and web apps for businesses that refuse to blend in.",
+          "Derrick Hopeson (mestudioo) builds custom websites, mobile apps, and UI/UX design for businesses that want digital products people return to.",
       },
       { name: "author", content: "me.studio" },
       { name: "google-site-verification", content: "OmGMEOpMzzswPszEP1P0e3wq2jA7hJ-k8fV1B1VyEX8" },

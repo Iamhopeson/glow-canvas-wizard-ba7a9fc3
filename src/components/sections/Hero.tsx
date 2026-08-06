@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useWizard } from "@/components/WizardContext";
 import { CONTACT } from "@/content/site";
 
@@ -30,20 +30,11 @@ export function Hero() {
 
       <div className="relative z-10 max-w-6xl mx-auto grid lg:grid-cols-[1.15fr_0.85fr] gap-14 items-center">
         <div>
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="chip"
-          >
-            <Sparkles className="w-3.5 h-3.5" /> Freelance · Available for new projects
-          </motion.span>
-
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.08 }}
-            className="mt-5 text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.02]"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.02]"
           >
             Digital experiences <br className="hidden md:block" />
             built to give people a{" "}
