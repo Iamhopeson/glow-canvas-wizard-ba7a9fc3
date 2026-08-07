@@ -83,8 +83,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Derrick Hopeson (mestudioo) builds custom websites, mobile apps, and UI/UX design for businesses that want digital products people return to.",
+          "Derrick Hopeson (mestudioo) builds custom websites, mobile apps and UI/UX design — fast, secure, conversion-focused products people come back to.",
       },
+
       { name: "author", content: "me.studio" },
       { name: "google-site-verification", content: "OmGMEOpMzzswPszEP1P0e3wq2jA7hJ-k8fV1B1VyEX8" },
       { property: "og:site_name", content: "me.studio" },
@@ -103,6 +104,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
+
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

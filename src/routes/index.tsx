@@ -24,13 +24,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Derrick Hopeson (mestudioo) builds custom websites, mobile apps, and UI/UX design for businesses that want digital products people return to. Fast, secure, conversion-focused builds.",
+          "Derrick Hopeson (mestudioo) builds custom websites, mobile apps and UI/UX design — fast, secure, conversion-focused products people come back to.",
       },
       { property: "og:title", content: "Derrick Hopeson | Software Developer @ me.studio" },
       {
         property: "og:description",
         content:
-          "Derrick Hopeson (mestudioo) builds custom websites, mobile apps, and UI/UX design for businesses that want digital products people return to. Fast, secure, conversion-focused builds.",
+          "Derrick Hopeson (mestudioo) builds custom websites, mobile apps and UI/UX design — fast, secure, conversion-focused products people come back to.",
       },
       { property: "og:url", content: "https://mestudioo.com/" },
       { property: "og:type", content: "website" },
@@ -39,8 +39,9 @@ export const Route = createFileRoute("/")({
       {
         name: "twitter:description",
         content:
-          "Derrick Hopeson (mestudioo) builds custom websites, mobile apps, and UI/UX design for businesses that want digital products people return to. Fast, secure, conversion-focused builds.",
+          "Derrick Hopeson (mestudioo) builds custom websites, mobile apps and UI/UX design — fast, secure, conversion-focused products people come back to.",
       },
+
     ],
     links: [{ rel: "canonical", href: "https://mestudioo.com/" }],
     scripts: [
