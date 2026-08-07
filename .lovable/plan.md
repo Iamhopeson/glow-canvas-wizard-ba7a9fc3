@@ -1,18 +1,28 @@
-## Plan: Verify mestudioo.com with Google Search Console
+## Plan: Transparent logo + SEO smoke test
 
-The Google Search Console connector is now linked. To complete the SEO finding, the site needs to be verified as owned by your connected Google account. I'll use the meta-tag verification method (only method that works for a Lovable app).
+### 1. Remove the logo background
 
-### Steps
+The current logo asset (`me-studio-logo.png`) is a 1255x1255 PNG whose background is a solid opaque dark navy (`#111827`) — not transparent. On the light site this shows as a dark square behind the ouroboros mark in the nav and footer.
 
-1. **Add verification meta tag** to `src/routes/__root.tsx` inside the `head()` `meta` array:
-   ```
-   { name: "google-site-verification", content: "OmGMEOpMzzswPszEP1P0e3wq2jA7hJ-k8fV1B1VyEX8" }
-   ```
-2. **Ask you to publish** so the tag is live at https://mestudioo.com/ (Google fetches the server-rendered HTML — verification will fail until the new build is deployed).
-3. **Call Google's verify endpoint** for `https://mestudioo.com/` once you confirm publish is complete.
-4. **Add the verified site** to Search Console (`PUT /webmasters/v3/sites/https%3A%2F%2Fmestudioo.com%2F`) so it appears in your property list.
-5. **Mark the SEO finding fixed** via `seo_chat--update_findings`.
+- Regenerate the logo as a true transparent PNG: keep the ouroboros ring + `.me` wordmark in the dark ink color, make every background pixel fully transparent (with anti-aliased edge alpha so it doesn't look jagged at 32px).
+- Upload it as a new CDN asset and point `src/assets/me-studio-logo.png.asset.json` at it, so `Nav.tsx` and `Footer.tsx` pick it up with no code change.
+- Regenerate `public/favicon.ico` from the same transparent source (multi-size 16/32/48).
+
+### 2. SEO smoke test
+
+Run an automated check against the running app and report a pass/fail table:
+
+- `/` returns 200 and the server-rendered HTML contains: single `<h1>`, unique `<title>` ("Derrick Hopeson | Software Developer @ me.studio"), meta description, canonical, `og:title`/`og:description`/`og:url`/`og:image`, `twitter:card`/`twitter:image`.
+- Title < 60 chars, description < 160 chars.
+- JSON-LD blocks (Organization, WebSite, Service) parse as valid JSON.
+- `/robots.txt` returns 200, is not `Disallow: /`.
+- `/sitemap.xml` returns 200 and is well-formed XML with at least the home URL.
+- `/llms.txt` returns 200.
+- All `<img>` tags have non-empty `alt`.
+- The `google-site-verification` meta tag is present.
+
+Anything that fails gets fixed in the same pass (metadata-level fixes only, no layout changes), and I'll list the results.
 
 ### Notes
-- The meta tag is safe to keep in the site permanently; Google re-checks it periodically.
-- After verification, data (impressions, clicks, queries) takes a few days to populate in Search Console.
+- No content, layout, or copy changes beyond the logo asset swap.
+- Search Console property verification still needs the site published; that's separate from this smoke test.
